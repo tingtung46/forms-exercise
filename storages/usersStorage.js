@@ -27,4 +27,4 @@ class usersStorage {
   }
 }
 
-module.exports = usersStorage;
+module.exports = new usersStorage();

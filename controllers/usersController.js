@@ -1,20 +1,19 @@
 const usersStorage = require("../storages/usersStorage");
 
-exports.userListGet = (req, res) => {
+exports.usersListGet = (req, res) => {
   res.render("index", {
     title: "User List",
     users: usersStorage.getUsers(),
   });
 };
 
-exports.userCreateGet = (req, res) => {
-  res.render("createUser"),
-    {
-      title: "Create User",
-    };
+exports.usersCreateGet = (req, res) => {
+  res.render("createUser", {
+    title: "Create User",
+  });
 };
 
-exports.userCreatePost = (req, res) => {
+exports.usersCreatePost = (req, res) => {
   const { firstName, lastName } = req.body;
   usersStorage.addUser({ firstName, lastName });
   res.redirect("/");
