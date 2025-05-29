@@ -30,6 +30,11 @@ const validateUser = [
     .withMessage(`Age ${numericErr}`)
     .isInt({ min: 18, max: 120 })
     .withMessage(`Age ${rangeErr}`),
+  body("bio")
+    .optional({ values: "falsy" })
+    .trim()
+    .isLength({ max: 200 })
+    .withMessage("Bio must be maximum 200 characters"),
 ];
 
 exports.usersListGet = (req, res) => {
@@ -56,8 +61,8 @@ exports.usersCreatePost = [
       });
     }
 
-    const { firstName, lastName, email, age } = req.body;
-    usersStorage.addUser({ firstName, lastName, email, age });
+    const { firstName, lastName, email, age, bio } = req.body;
+    usersStorage.addUser({ firstName, lastName, email, age, bio });
     res.redirect("/");
   },
 ];
@@ -83,8 +88,14 @@ exports.usersUpdatePost = [
       });
     }
 
-    const { firstName, lastName, email, age } = req.body;
-    usersStorage.updateUser(req.params.id, { firstName, lastName, email, age });
+    const { firstName, lastName, email, age, bio } = req.body;
+    usersStorage.updateUser(req.params.id, {
+      firstName,
+      lastName,
+      email,
+      age,
+      bio,
+    });
     res.redirect("/");
   },
 ];
