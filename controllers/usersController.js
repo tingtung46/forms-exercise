@@ -3,6 +3,8 @@ const { body, validationResult } = require("express-validator");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 10 characters";
+const numericErr = "must only contain numbers";
+const rangeErr = "must be age between 18 and 120";
 
 const validateUser = [
   body("firstName")
@@ -21,6 +23,13 @@ const validateUser = [
     .trim()
     .isEmail()
     .withMessage("Email must be valid (e.g. username@domain.com)"),
+  body("age")
+    .optional({ values: "falsy" })
+    .trim()
+    .isNumeric()
+    .withMessage(`Age ${numericErr}`)
+    .isInt({ min: 18, max: 120 })
+    .withMessage(`Age ${rangeErr}`),
 ];
 
 exports.usersListGet = (req, res) => {
@@ -47,8 +56,8 @@ exports.usersCreatePost = [
       });
     }
 
-    const { firstName, lastName, email } = req.body;
-    usersStorage.addUser({ firstName, lastName, email });
+    const { firstName, lastName, email, age } = req.body;
+    usersStorage.addUser({ firstName, lastName, email, age });
     res.redirect("/");
   },
 ];
@@ -74,8 +83,8 @@ exports.usersUpdatePost = [
       });
     }
 
-    const { firstName, lastName, email } = req.body;
-    usersStorage.updateUser(req.params.id, { firstName, lastName, email });
+    const { firstName, lastName, email, age } = req.body;
+    usersStorage.updateUser(req.params.id, { firstName, lastName, email, age });
     res.redirect("/");
   },
 ];

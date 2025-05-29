@@ -6,10 +6,11 @@
   <body>
     <h1><%= title %></h1>
     <ul>
-      <% if (locals.users) {%> <% users.forEach((user) => { %>
+      <% if (locals.users) {%> <% users.forEach((user)=> { %>
       <li>
         ID: <%= user.id %>, Name: <%= user.firstName %> <%= user.lastName %>,
-        Email: <%= user.email %>
+        Email: <%= user.email %><% if(user.age) { %>, Age: <%= user.age %> <% }
+        %>
 
         <a href="/<%= user.id%>/update">Update</a>
 
