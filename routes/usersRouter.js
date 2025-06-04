@@ -8,5 +8,6 @@ userRouter.post("/create", usersController.usersCreatePost);
 userRouter.get("/:id/update", usersController.usersUpdateGet);
 userRouter.post("/:id/update", usersController.usersUpdatePost);
 userRouter.post("/:id/delete", usersController.usersDeletePost);
+userRouter.get("/search", usersController.usersSearch);
 
 module.exports = userRouter;

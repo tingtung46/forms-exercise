@@ -104,3 +104,22 @@ exports.usersDeletePost = (req, res) => {
   usersStorage.deleteUser(req.params.id);
   res.redirect("/");
 };
+
+exports.usersSearch = (req, res) => {
+  const userName = req.query.name;
+  const allUsers = usersStorage.getUsers();
+  const searchResult = [];
+
+  allUsers.forEach((user) => {
+    const userFullName = (user.firstName + " " + user.lastName).toLowerCase();
+
+    if (userFullName.includes(userName.toLowerCase())) {
+      searchResult.push(user);
+    }
+  });
+
+  res.render("search", {
+    title: "Search Result",
+    users: searchResult,
+  });
+};

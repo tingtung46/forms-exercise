@@ -6,8 +6,6 @@
   <body>
     <h1><%= title %></h1>
 
-    <%- include('searchBar.ejs') %>
-
     <ul>
       <% if (locals.users) {%> <% users.forEach((user)=> { %>
       <li>
@@ -37,7 +35,5 @@
       </li>
       <% }); %> <% } %>
     </ul>
-
-    <a href="/create">Create a user</a>
   </body>
 </html>
